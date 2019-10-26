@@ -5,13 +5,13 @@
 ```json
 {
   "commands": {
+    // It can be grouped
     "git": {
       "add": "git add",
       "push": "git push"
     },
-    "sth": {
-      ...
-    }
+    // Or be single
+    "sth": "sth"
   }
 }
 ```
