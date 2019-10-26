@@ -22,6 +22,11 @@ $ enva git add . --> git add .
 $ enva git push origin master --> git push origin master
 ```
 
+You can also generate this file using:
+```bash
+$ enva init
+```
+
 You can also add commands using these enva commands:
 ```bash
 $ enva command create
