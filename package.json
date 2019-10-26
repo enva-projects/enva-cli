@@ -1,6 +1,6 @@
 {
-  "version": "0.0.1",
-  "name": "@enva/enva-cli",
+  "version": "0.0.2",
+  "name": "@enva/cli",
   "license": "MIT",
   "homepage": "https://github.com/enva-projects/enva-cli",
   "repository": {
@@ -11,7 +11,8 @@
     "url": "https://github.com/enva-projects/enva-cli/issues"
   },
   "bin": {
-    "enva": "./src/index.js"
+    "enva": "./src/index.js",
+    "e": "./src/index.js"
   },
   "main": "index.js",
   "devDependencies": {
