@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
-const yargs = require('yargs').argv
-
 const commandManager = require('./commandManager')
 
-const command = yargs._
+const command = process.argv.slice(2)
 
 if (commandManager.isEnvaCommand(command)) {
   commandManager.executeEnvaCommand(command)
