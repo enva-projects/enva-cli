@@ -1,5 +1,5 @@
 const { prompt } = require('enquirer')
-const { writeConfig, config, getCommandNodes, commandRoots } = require('./configManager')
+const { writeConfig, config, getCommandNodes, commandRoots, createBasicConfig } = require('./configManager')
 const mergeDeep = require('merge-deep')
 
 async function createCommand () {
@@ -74,8 +74,10 @@ async function deleteCommand () {
   writeConfig(configPath, configObj)
 }
 
-module.exports = (command) => {
-  if (command === 'create') {
+module.exports = ([root, command]) => {
+  if (root === 'init') {
+    createBasicConfig()
+  } else if (command === 'create') {
     createCommand()
   } else if (command === 'delete') {
     deleteCommand()

@@ -8,7 +8,7 @@ module.exports = {
     return getCommand(command, configObj)
   },
   isEnvaCommand ([root]) {
-    return root === 'command'
+    return root === 'command' || root === 'init'
   },
   executeCommand (userCommand) {
     const command = getCommand(userCommand, configObj)
@@ -21,6 +21,6 @@ module.exports = {
   },
   executeEnvaCommand ([root, command]) {
     if (!this.isEnvaCommand([root])) throw new Error(`Command isn't valid!`)
-    executeEnvaCommand(command)
+    executeEnvaCommand([root, command])
   }
 }

@@ -25,15 +25,15 @@ function getGlobalConfigFile () {
   }
 }
 
-function findNearestConfig () {
+function findNearestConfig (currentPath = process.env.PWD) {
   const fileAddress = path.resolve(process.env.PWD, CONFIG_FILE_NAME)
   if (fs.existsSync(fileAddress)) {
     return {
       path: process.env.PWD,
       configObj: fs.readFileSync(fileAddress, 'utf8')
     }
-  } else if (process.env.PWD !== '/') {
-    return findNearestConfig(path.resolve(process.env.PWD, '..'))
+  } else if (currentPath !== '/') {
+    return findNearestConfig(path.resolve(currentPath, '..'))
   }
   return null
 }
@@ -42,6 +42,17 @@ function getConfig () {
   const config = findNearestConfig(process.env.PWD) ? findNearestConfig(process.env.PWD) : getGlobalConfigFile()
   config.configObj = JSON.parse(config.configObj)
   return config
+}
+
+function createBasicConfig () {
+  const basicConfig = {
+    commands: {
+      git: {
+        add: 'git add'
+      }
+    }
+  }
+  writeConfig(process.env.PWD, basicConfig)
 }
 
 function writeConfig (configPath, config) {
@@ -62,5 +73,6 @@ module.exports = {
   config,
   commandRoots,
   getCommandNodes,
-  writeConfig
+  writeConfig,
+  createBasicConfig
 }
