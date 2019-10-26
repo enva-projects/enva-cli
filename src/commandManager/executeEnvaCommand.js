@@ -75,11 +75,11 @@ async function deleteCommand () {
 }
 
 module.exports = ([root, command]) => {
-  if (root === 'init') {
+  if (root === 'init' || !root) {
     createBasicConfig()
-  } else if (command === 'create') {
+  } else if (command === 'a') {
     createCommand()
-  } else if (command === 'delete') {
+  } else if (command === 'd') {
     deleteCommand()
   } else {
     console.error('Enva command not found!')

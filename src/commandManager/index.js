@@ -8,7 +8,7 @@ module.exports = {
     return getCommand(command, configObj)
   },
   isEnvaCommand ([root]) {
-    return root === 'command' || root === 'init'
+    return root === '-e' || !root
   },
   executeCommand (userCommand) {
     const command = getCommand(userCommand, configObj)
