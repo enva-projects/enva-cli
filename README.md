@@ -24,7 +24,7 @@ $ enva git push origin master --> git push origin master
 
 You can also generate this file using:
 ```bash
-$ enva init OR enva
+$ enva
 ```
 
 You can also add commands using these enva commands:
