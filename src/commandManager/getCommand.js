@@ -1,10 +1,18 @@
 module.exports = function getCommand (command, { commands }) {
-  let finalCommand
-  if (command.length > 1) {
-    finalCommand = commands[command[0]] ? commands[command[0]][command[1]] : null
-  } else {
-    finalCommand = commands[command[0]]
+  if (typeof commands[command[0]] === 'object') {
+    if (command[1] && commands[command[0]][command[1]]) {
+      return {
+        command: commands[command[0]][command[1]],
+        args: [...command].splice(2)
+      }
+    }
+    return null
   }
-  if (!finalCommand) return null
-  return finalCommand
+  if (commands[command[0]]) {
+    return {
+      command: commands[command[0]],
+      args: [...command].splice(1)
+    }
+  }
+  return null
 }

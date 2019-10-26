@@ -13,10 +13,9 @@ module.exports = {
   executeCommand (userCommand) {
     const command = getCommand(userCommand, configObj)
     if (!command) throw new Error(`Command doesn't exist!`)
-    const args = userCommand.splice(2)
     executeCommand({
-      command,
-      args,
+      command: command.command,
+      args: command.args,
       cwd: path
     })
   },
