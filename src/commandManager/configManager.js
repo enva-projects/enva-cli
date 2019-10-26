@@ -16,12 +16,12 @@ function getGlobalConfigFile () {
   if (fs.existsSync(configFilePath)) {
     return {
       path: envaPath,
-      config: fs.readFileSync(path.resolve(envaPath, CONFIG_FILE_NAME), 'utf8')
+      configObj: fs.readFileSync(path.resolve(envaPath, CONFIG_FILE_NAME), 'utf8')
     }
   }
   return {
     path: envaPath,
-    config: '{ "commands": {} }'
+    configObj: '{ "commands": {} }'
   }
 }
 
@@ -30,7 +30,7 @@ function findNearestConfig () {
   if (fs.existsSync(fileAddress)) {
     return {
       path: process.env.PWD,
-      config: fs.readFileSync(fileAddress, 'utf8')
+      configObj: fs.readFileSync(fileAddress, 'utf8')
     }
   } else if (process.env.PWD !== '/') {
     return findNearestConfig(path.resolve(process.env.PWD, '..'))
@@ -40,18 +40,12 @@ function findNearestConfig () {
 
 function getConfig () {
   const config = findNearestConfig(process.env.PWD) ? findNearestConfig(process.env.PWD) : getGlobalConfigFile()
-  config.config = JSON.parse(config.config)
+  config.configObj = JSON.parse(config.configObj)
   return config
 }
 
 function writeConfig (configPath, config) {
   fs.writeFileSync(path.resolve(configPath, CONFIG_FILE_NAME), JSON.stringify(config, null, 2))
-}
-
-function getCommandRoots () {
-  const { config: { commands } } = getConfig()
-
-  return Object.keys(commands)
 }
 
 function getCommandNodes (root) {
@@ -60,9 +54,13 @@ function getCommandNodes (root) {
   return Object.keys(commands[root])
 }
 
+const config = getConfig()
+
+const commandRoots = Object.keys(config.configObj.commands)
+
 module.exports = {
-  getConfig,
-  getCommandRoots,
+  config,
+  commandRoots,
   getCommandNodes,
   writeConfig
 }

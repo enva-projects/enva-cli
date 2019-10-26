@@ -1,5 +1,5 @@
 const { prompt } = require('enquirer')
-const { writeConfig, getConfig, getCommandNodes, getCommandRoots } = require('./configManager')
+const { writeConfig, config, getCommandNodes, commandRoots } = require('./configManager')
 const mergeDeep = require('merge-deep')
 
 async function createCommand () {
@@ -27,15 +27,20 @@ async function createCommand () {
     }
   }
 
-  const { config, path: configPath } = getConfig()
+  const { configObj, path: configPath } = config
 
-  config.commands = mergeDeep(config.commands, commandObj)
+  configObj.commands = mergeDeep(configObj.commands, commandObj)
 
-  writeConfig(configPath, config)
+  writeConfig(configPath, configObj)
 }
 
 async function deleteCommand () {
-  const roots = getCommandRoots()
+  const roots = commandRoots
+
+  if (!roots.length) {
+    console.log('No commands found.')
+    process.exit(-1)
+  }
 
   const { root } = await prompt([{
     type: 'select',
@@ -46,6 +51,11 @@ async function deleteCommand () {
 
   const nodes = getCommandNodes(root)
 
+  if (!nodes.length) {
+    console.log('No commands found.')
+    process.exit(-1)
+  }
+
   const { node } = await prompt([{
     type: 'select',
     name: 'node',
@@ -53,15 +63,15 @@ async function deleteCommand () {
     choices: ['All', ...nodes]
   }])
 
-  const { config, path: configPath } = getConfig()
+  const { configObj, path: configPath } = config
 
   if (node === 'All') {
-    delete config.commands[root]
+    delete configObj.commands[root]
   } else {
-    delete config.commands[root][node]
+    delete configObj.commands[root][node]
   }
 
-  writeConfig(configPath, config)
+  writeConfig(configPath, configObj)
 }
 
 module.exports = (command) => {
@@ -69,5 +79,7 @@ module.exports = (command) => {
     createCommand()
   } else if (command === 'delete') {
     deleteCommand()
+  } else {
+    console.error('Enva command not found!')
   }
 }
