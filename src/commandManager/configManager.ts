@@ -71,10 +71,4 @@ const config = getConfig()
 
 const commandRoots = Object.keys(config.configObj.commands)
 
-module.exports = {
-    config,
-    commandRoots,
-    getCommandNodes,
-    writeConfig,
-    createBasicConfig,
-}
+export { config, commandRoots, getCommandNodes, writeConfig, createBasicConfig }

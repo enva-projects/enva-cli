@@ -6,7 +6,7 @@ const getCommand = require('./getCommand')
 const executeCommand = require('./executeCommand')
 const executeEnvaCommand = require('./executeEnvaCommand')
 
-module.exports = {
+export default {
     doesCommandExists(command) {
         return getCommand(command, configObj)
     },
