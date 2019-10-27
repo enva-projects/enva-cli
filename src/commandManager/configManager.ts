@@ -25,8 +25,8 @@ function getGlobalConfigFile() {
     }
 }
 
-function findNearestConfig(currentPath = process.env.PWD) {
-    const fileAddress = resolve(process.env.PWD, CONFIG_FILE_NAME)
+function findNearestConfig(currentPath = process.env.PWD || '') {
+    const fileAddress = resolve(process.env.PWD || '', CONFIG_FILE_NAME)
     if (fs.existsSync(fileAddress)) {
         return {
             path: process.env.PWD,
