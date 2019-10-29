@@ -1,34 +1,46 @@
-# enva-cli
+# Enva CLI
 
-.envarc sample:
+Shared and colabrative scripts on your command.
+
+Enva CLI enables users to define most used commands so it can be sharable and much easier to use.
+
+## Motivation
+
+## Installation
+
+```bash
+$ npm install -g @enva/cli
+```
+
+Or install it using [Yarn](https://yarnpkg.com/)
+
+```bash
+$ yarn global add @enva/cli
+```
+
+## Usage
+
+Enva uses `.envarc` files as config files to understand what commands you're going to use in your enviroment. Here's an example:
+
+`~/.envarc`
 
 ```json
 {
-  "commands": {
-    // It can be grouped
-    "git": {
-      "add": "git add",
-      "push": "git push"
-    },
-    // Or be single
-    "sth": "sth"
-  }
+    "commands": {
+        // Yarn helpers
+        "y": "yarn",
+        "yi": "yarn add $1 $", // enva yi
+
+        // Git aliases
+        "clone": "git clone https://github.com/${2:johndoe}/$1; cd $1;"
+    }
 }
 ```
 
-It will be:
-```bash
-$ enva git add . --> git add .
-$ enva git push origin master --> git push origin master
-```
+## Contributing
 
-You can also generate this file using:
-```bash
-$ enva
-```
+_Contributing guide on going_
 
-You can also add commands using these enva commands:
-```bash
-$ enva -e a
-$ enva -e d
-```
+## License
+
+[MIT](./LICENSE)
