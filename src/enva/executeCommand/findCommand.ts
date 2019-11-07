@@ -18,11 +18,11 @@ function parseCommand(command: string, args: string[]){
     const itemWithDefaultRegexp = /\${(\d+):(.+?)}/;
     const splittedItem = itemWithDefaultRegexp.exec(item);
     if(splittedItem){
-      return args[splittedItem[1]] || splittedItem[2]
+      return args[Number(splittedItem[1]) - 1] || splittedItem[2]
     }else {
       const numberOfArg = item.replace('$', '');
       if(numberOfArg) {
-        return args[numberOfArg] || ''
+        return args[Number(numberOfArg) - 1] || ''
       }
       return args.join(' ');
     }
