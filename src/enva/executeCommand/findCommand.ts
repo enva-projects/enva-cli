@@ -13,13 +13,19 @@ const CONFIG_FILE_CONFIGS = {
 const ROOT = '/';
 
 function parseCommand(command: string, args: string[]){
-  const commandRegexp = /\$\d*/g;
+  const commandRegexp = /\${?\d*(:.*?})?/g;
   return command.replace(commandRegexp, (item)=>{
-    const numberOfArg = item.replace('$', '');
-    if(numberOfArg) {
-      return args[numberOfArg] || ''
+    const itemWithDefaultRegexp = /\${(\d+):(.+?)}/;
+    const splittedItem = itemWithDefaultRegexp.exec(item);
+    if(splittedItem){
+      return args[splittedItem[1]] || splittedItem[2]
+    }else {
+      const numberOfArg = item.replace('$', '');
+      if(numberOfArg) {
+        return args[numberOfArg] || ''
+      }
+      return args.join(' ');
     }
-    return args.join(' ');
   }).replace(/\s{2,}/, ' ').trim();
 }
 

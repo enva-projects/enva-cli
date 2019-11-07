@@ -1,0 +1,5 @@
+{
+  "commands": {
+    "add": "git add $1 ${2:salam} $"
+  }
+}
