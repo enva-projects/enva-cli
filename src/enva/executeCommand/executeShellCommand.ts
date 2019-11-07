@@ -2,7 +2,7 @@ const {
   execSync
 } = require('child_process')
 
-module.exports = ({command, cwd, args}) => {
+export default function executeShellCommand(command, args: string[] = [], cwd = process.env.PWD || '.') {
   const commandWithArgs = `${command} ${args.join(' ')}`
   execSync(commandWithArgs, {
     cwd,
