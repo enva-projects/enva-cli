@@ -11,14 +11,13 @@ const ROOT = '/';
 
 const GLOBAL_PATH = execSync('npm root').toString().trim();
 
-export default function executeCommand(userCommand: string[], current = process.env.PWD || '.'){
-  const config = findConfig(current);
-  if(config) {
-    const parsedConfig = parseConfig(config);
+export default function executeCommand(userCommand: string[], current: string = process.env.PWD || '.'): StatusWithMessage {
+  const { data, type } = findConfig(current);
+  if(data) {
+    const parsedConfig = parseConfig(data, type);
     if(parsedConfig) {
-      const command = findCommand(userCommand, parsedConfig)
-      if(command){
-        const { baseCommand, args } = command;
+      const { baseCommand, args } = findCommand(userCommand, parsedConfig)
+      if(baseCommand){
         executeShellCommand(baseCommand, args, current);
         return {
           status: true,

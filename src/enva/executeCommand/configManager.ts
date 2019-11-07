@@ -7,7 +7,7 @@ const CONFIG_FILE_CONFIGS = {
   'envarc.yml': 'yml'
 }
 
-export function findConfig(directory){
+export function findConfig(directory: string): { data: string, type: string }{
   for(const configFileName of Object.keys(CONFIG_FILE_CONFIGS)){
     const configFileAddress = path.resolve(directory, configFileName)
     if(fs.existsSync(configFileAddress)) {
@@ -17,9 +17,12 @@ export function findConfig(directory){
       }
     }
   }
-  return false;
+  return {
+    data: '',
+    type: '',
+  };
 }
 
-export function parseConfig({ data, type }){
+export function parseConfig(data: string, type: string): ConfigObject{
   return JSON.parse(data);
 }

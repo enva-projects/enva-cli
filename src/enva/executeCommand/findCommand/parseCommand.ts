@@ -1,4 +1,4 @@
-export default function parseCommand(command: string, args: string[]){
+export default function parseCommand(command: string, args: string[]): string {
   const commandRegexp = /\${?\d*(:.*?})?/g;
   return command.replace(commandRegexp, (item)=>{
     const itemWithDefaultRegexp = /\${(\d+):(.+?)}/;
