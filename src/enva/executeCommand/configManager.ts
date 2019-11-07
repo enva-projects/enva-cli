@@ -4,7 +4,7 @@ import path from 'path';
 const CONFIG_FILE_CONFIGS = {
   '.envarc': 'json',
   '.envarc.js': 'js',
-  'envarc.yml': 'yml'
+  '.envarc.yml': 'yml'
 }
 
 export function findConfig(directory: string): { data: string, type: string }{
