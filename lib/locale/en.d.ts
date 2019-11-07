@@ -1,4 +1,5 @@
 declare const _default: {
-    something: string;
+    PARSE_CONFIG_FAILED: string;
+    COMMAND_NOT_FOUND: string;
 };
 export default _default;

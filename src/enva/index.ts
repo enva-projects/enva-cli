@@ -5,7 +5,12 @@ import executeCommand from './executeCommand';
 
 export default function enva(args: string[]){
   if(args[0].startsWith('-')) {
-    if(!executeEnvaCommand(args)) console.log("Enva Command Not Found!");
+    if(executeEnvaCommand(args)) {
+      return {
+        status: true,
+        message: ''
+      }
+    }
   }
-  if(!executeCommand(args)) console.log("Command Not Found!");
+  return executeCommand(args)
 }

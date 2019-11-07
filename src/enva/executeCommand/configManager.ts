@@ -1,18 +1,10 @@
 import fs from 'fs';
-import {
-  execSync
-} from 'child_process';
 import path from 'path';
 
 const CONFIG_FILE_CONFIGS = {
   '.envarc': 'json',
   '.envarc.js': 'js',
   'envarc.yml': 'yml'
-}
-
-export function findGlobalConfig(){
-  const globalPath = execSync('npm root').toString().trim();
-  return findConfig(globalPath)
 }
 
 export function findConfig(directory){
