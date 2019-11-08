@@ -4,8 +4,8 @@ import {
 } from 'child_process';
 
 import findCommand from './findCommand/index';
-import executeShellCommand from './executeShellCommand';
 import { findConfig, parseConfig } from './configManager';
+import { executePlugin, executeShellCommand } from './commandExecuter';
 
 const ROOT = '/';
 
@@ -16,12 +16,13 @@ export default function executeCommand(userCommand: string[], current: string = 
   if(data) {
     const parsedConfig = parseConfig(data, type);
     if(parsedConfig) {
-      const { baseCommand, args } = findCommand(userCommand, parsedConfig)
-      if(baseCommand){
-        executeShellCommand(baseCommand, args, current);
+      const { pluginName, args, type, baseCommand } = findCommand(userCommand, parsedConfig)
+      if(type){
+        if(type === 'shell') executeShellCommand(baseCommand, args, current);
+        else executePlugin(pluginName, args);
         return {
           status: true,
-          message: ''
+          message: 'SUCCESS'
         }
       }
     }else return {
