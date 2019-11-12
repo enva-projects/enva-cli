@@ -5,5 +5,10 @@ interface StatusWithMessage {
 
 interface ConfigObject {
   commands: Object,
-  plugins: Object
+  plugins: [
+    {
+      name: string,
+      command: string
+    }
+  ]
 }
