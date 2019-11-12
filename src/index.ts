@@ -1,14 +1,11 @@
 #!/usr/bin/env node
 
-const commandManager = require('./commandManager')
+import enva from './enva';
 
-const command = process.argv.slice(2)
+import translations from './locale/en';
 
-if (commandManager.isEnvaCommand(command)) {
-    commandManager.executeEnvaCommand(command)
-} else if (commandManager.doesCommandExists(command)) {
-    commandManager.executeCommand(command)
-} else {
-    console.error('Command not found!')
-    process.exit(-1)
-}
+const args = process.argv.splice(2);
+
+const { status, message } = enva(args);
+
+if(!status) console.log(translations[message]);

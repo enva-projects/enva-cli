@@ -11,13 +11,15 @@
     "url": "https://github.com/enva-projects/enva-cli/issues"
   },
   "bin": {
-    "enva": "./src/index.js",
-    "e": "./src/index.js"
+    "enva": "./lib/index.js",
+    "e": "./lib/index.js"
   },
   "main": "index.js",
   "devDependencies": {
     "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-standard": "^4.4.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-standard": "^1.3.1"
   },
   "engines": {
